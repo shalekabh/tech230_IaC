@@ -1,4 +1,6 @@
 # Ansible
+![Alt text](pics_for_mds/anisble%20diagram.png)
+
 
 ### Vagrant
 
