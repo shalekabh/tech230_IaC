@@ -123,5 +123,6 @@ To start the app and reverse proxy:
 
 ```
 
+To run the play book the command is ```sudo ansible-playbook config_nginx_web.yaml``` then you should see this:
 
-
+![Alt text](pics_for_mds/playbook%20test.png)
