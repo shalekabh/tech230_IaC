@@ -32,7 +32,7 @@ save and exit
 
 Run the plabook: 
 
-```sudo ansible-playbook config_mongo_db.yaml --ask-vault-pass"
+```sudo ansible-playbook config_mongo_db.yaml --ask-vault-pass```
 
 ssh into the db:
 
@@ -73,3 +73,41 @@ Then use ```printenv``` to see if .bashrc was updated correctly:
 ```node seeds/seed.js```
 
 ```npm start```
+
+### Automation
+
+Here are the commands to automate:
+
+```
+  tasks:
+  - name: Setting up mongo db
+    apt: pkg=mongodb state=present
+
+  - name: Change bind ip
+    replace:
+      path: /etc/mongodb.conf
+      regexp: 'bind_ip = 127.0.0.1'
+      replace: 'bind_ip = 0.0.0.0'
+    become: true
+
+  - name: Uncomment port
+    replace:
+      path: /etc/mongodb.conf
+      regexp: '#port = 27017'
+      replace: 'port = 27017'
+    become: true
+
+  - name: Restart mongodb
+    service:
+      name: mongodb
+      state: restarted
+    become: true
+
+  - name: Enable mongodb
+    service:
+      name: mongodb
+      state: started
+      enabled: yes
+    become: true
+
+    ```
