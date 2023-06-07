@@ -97,7 +97,7 @@ To start the app and reverse proxy:
         regexp: 'try_files \$uri \$uri/ =404;'
         replace: 'proxy_pass http://localhost:3000/;'
 
-- name: Test Nginx configuration
+    - name: Test Nginx configuration
       command: nginx -t
       ignore_errors: yes
       register: nginx_config
