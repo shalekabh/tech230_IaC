@@ -90,6 +90,8 @@ To start the app and reverse proxy:
         name: nodejs
         state: present
 
+
+
     - name: Install npm dependencies
       command: npm install
       args:
@@ -101,4 +103,25 @@ To start the app and reverse proxy:
         regexp: 'try_files \$uri \$uri/ =404;'
         replace: 'proxy_pass http://localhost:3000/;'
 
+- name: Test Nginx configuration
+      command: nginx -t
+      ignore_errors: yes
+      register: nginx_config
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+      become: true
+      when: nginx_config.rc == 0
+
+    - name: Installing NPM
+      apt:
+        name: npm
+        state: present
+
+
 ```
+
+
+
